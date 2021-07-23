@@ -1,10 +1,10 @@
 package com.macro.cloud.config;
 
 import cn.hutool.core.util.ArrayUtil;
-import com.macro.cloud.constant.AuthConstant;
 import com.macro.cloud.authorization.AuthorizationManager;
 import com.macro.cloud.component.RestAuthenticationEntryPoint;
 import com.macro.cloud.component.RestfulAccessDeniedHandler;
+import com.macro.cloud.constant.AuthConstant;
 import com.macro.cloud.filter.IgnoreUrlsRemoveJwtFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
