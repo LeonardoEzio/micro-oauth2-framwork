@@ -3,7 +3,9 @@ package com.macro.cloud.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,7 +14,8 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
-public class UserDTO{
+@NoArgsConstructor
+public class UserDTO implements Serializable {
     private Long id;
     private String username;
     private String password;

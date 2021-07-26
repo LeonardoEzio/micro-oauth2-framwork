@@ -3,7 +3,9 @@ package com.macro.cloud.controller;
 import com.macro.cloud.api.CommonResult;
 import com.macro.cloud.domain.Oauth2TokenDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -38,5 +41,17 @@ public class AuthController {
                 .tokenHead("Bearer ").build();
 
         return CommonResult.success(oauth2TokenDto);
+    }
+
+    /**
+     *
+     * */
+    @RequestMapping(value = "/user", produces = "application/json")
+    public Map<String,Object> user(OAuth2Authentication user){
+        Map<String, Object> userInfo = new HashMap<>();
+        userInfo.put("user", user.getUserAuthentication().getPrincipal());
+        userInfo.put("authorities", AuthorityUtils.authorityListToSet(
+                user.getUserAuthentication().getAuthorities()));
+        return userInfo;
     }
 }

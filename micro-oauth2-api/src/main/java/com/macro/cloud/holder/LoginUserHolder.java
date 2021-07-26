@@ -22,10 +22,7 @@ public class LoginUserHolder {
         HttpServletRequest request = servletRequestAttributes.getRequest();
         String userStr = request.getHeader("user");
         JSONObject userJsonObject = new JSONObject(userStr);
-        UserDTO userDTO = new UserDTO();
-        userDTO.setUsername(userJsonObject.getStr("user_name"));
-        userDTO.setId(Convert.toLong(userJsonObject.get("id")));
-        userDTO.setRoles(Convert.toList(String.class,userJsonObject.get("authorities")));
+        UserDTO userDTO = new UserDTO(Convert.toLong(userJsonObject.get("id")),userJsonObject.getStr("user_name"),"123456",null,Convert.toList(String.class,userJsonObject.get("authorities")));
         return userDTO;
     }
 }

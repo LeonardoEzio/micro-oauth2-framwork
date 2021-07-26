@@ -28,6 +28,7 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserDetailsService {
 
     private List<UserDTO> userList;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
