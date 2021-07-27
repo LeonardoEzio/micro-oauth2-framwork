@@ -1,17 +1,15 @@
 package com.macro.cloud.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.macro.cloud.api.CommonResult;
 import com.macro.cloud.domain.Oauth2TokenDto;
+import com.macro.cloud.domain.security.TokenVerifyRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.HashMap;
@@ -26,12 +24,15 @@ import java.util.Map;
 public class AuthController {
 
     @Autowired
+    private TokenStore tokenStore;
+
+    @Autowired
     private TokenEndpoint tokenEndpoint;
 
     /**
      * Oauth2登录认证
      */
-    @RequestMapping(value = "/token", method = RequestMethod.POST)
+    @PostMapping(value = "/token")
     public CommonResult<Oauth2TokenDto> postAccessToken(Principal principal, @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
         OAuth2AccessToken oAuth2AccessToken = tokenEndpoint.postAccessToken(principal, parameters).getBody();
         Oauth2TokenDto oauth2TokenDto = Oauth2TokenDto.builder()
@@ -39,19 +40,24 @@ public class AuthController {
                 .refreshToken(oAuth2AccessToken.getRefreshToken().getValue())
                 .expiresIn(oAuth2AccessToken.getExpiresIn())
                 .tokenHead("Bearer ").build();
-
         return CommonResult.success(oauth2TokenDto);
     }
 
-    /**
-     *
-     * */
-    @RequestMapping(value = "/user", produces = "application/json")
-    public Map<String,Object> user(OAuth2Authentication user){
+
+    @PostMapping(value = "/verify")
+    public CommonResult<Oauth2TokenDto> verifyAccessToken(@RequestBody TokenVerifyRequest tokenVerifyRequest){
+        OAuth2AccessToken oAuth2AccessToken = tokenStore.readAccessToken(tokenVerifyRequest.getAccessToken());
+        if (null == oAuth2AccessToken || StrUtil.isBlank(oAuth2AccessToken.getValue()) || oAuth2AccessToken.isExpired()){
+            return CommonResult.failed("token expired !!!");
+        }
+        return CommonResult.success(null);
+    }
+
+
+    @PostMapping(value = "/test")
+    public Map<String,Object> user(){
         Map<String, Object> userInfo = new HashMap<>();
-        userInfo.put("user", user.getUserAuthentication().getPrincipal());
-        userInfo.put("authorities", AuthorityUtils.authorityListToSet(
-                user.getUserAuthentication().getAuthorities()));
+        userInfo.put("user", "leonardoezio");
         return userInfo;
     }
 }

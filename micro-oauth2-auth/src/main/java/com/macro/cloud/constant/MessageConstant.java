@@ -10,6 +10,8 @@ public class MessageConstant {
 
     public static final String USERNAME_PASSWORD_ERROR = "用户名或密码错误!";
 
+    public static final String USER_NOT_FIND = "未找到相应用户";
+
     public static final String CREDENTIALS_EXPIRED = "该账户的登录凭证已过期，请重新登录!";
 
     public static final String ACCOUNT_DISABLED = "该账户已被禁用，请联系管理员!";

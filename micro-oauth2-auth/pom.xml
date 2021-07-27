@@ -23,6 +23,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-oauth2</artifactId>
@@ -37,7 +38,7 @@
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
-            <version>3.10.0</version>
+            <version>${okhttp.version}</version>
         </dependency>
 
         <!-- redis -->
@@ -49,26 +50,26 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.13</version>
+            <version>${mysql.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
-            <version>3.2.0</version>
+            <version>${hikaricp.version}</version>
         </dependency>
 
         <!-- mybatis-plus begin -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.3.1</version>
+            <version>${mybatis-plus-boot-starter.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.macro.cloud</groupId>
             <artifactId>micro-oauth2-common</artifactId>
-            <version>1.0.0</version>
+            <version>${version}</version>
         </dependency>
     </dependencies>
 

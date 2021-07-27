@@ -20,10 +20,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
-                .antMatchers("/oauth/token","/user/find").permitAll()
-                .anyRequest().authenticated();
+        http.csrf()
+            .disable()
+            .authorizeRequests()
+            .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
+            .mvcMatchers("/oauth/**","/user/find").permitAll()
+            .anyRequest().authenticated();
     }
 
     @Bean
