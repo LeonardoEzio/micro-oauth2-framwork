@@ -3,8 +3,11 @@ package com.macro.cloud.web.controller;
 import cn.hutool.core.bean.BeanUtil;
 import com.macro.cloud.api.CommonResult;
 import com.macro.cloud.dao.entity.SysUser;
-import com.macro.cloud.domain.security.UserInfo;
+import com.macro.cloud.holder.LoginUserHolder;
+import com.macro.cloud.security.entity.UserInfo;
+import com.macro.cloud.security.entity.UserToken;
 import com.macro.cloud.service.UserInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -21,10 +24,18 @@ public class UserInfoController {
     @Resource
     private UserInfoService userInfoService;
 
+    @Autowired
+    private LoginUserHolder loginUserHolder;
+
     @PostMapping("add")
     public CommonResult<SysUser> addUser(@RequestBody SysUser sysUser){
         SysUser result = userInfoService.addUser(sysUser);
         return CommonResult.success(result);
+    }
+
+    @GetMapping("currentUser")
+    public UserToken currentUser() {
+        return loginUserHolder.getCurrentUser();
     }
 
     @GetMapping("getByName")
@@ -33,7 +44,8 @@ public class UserInfoController {
         if (sysUser != null){
             UserInfo userInfo = BeanUtil.copyProperties(sysUser, UserInfo.class);
             userInfo.setRoles(Arrays.asList("admin","sysadmin"));
-            userInfo.setMenus(Arrays.asList("/user/add","/user/disable"));
+            userInfo.setMenus(Arrays.asList("/api/user/add"));
+            //"/api/user/disable"
             return CommonResult.success(userInfo);
         }
         return CommonResult.failed();
@@ -41,7 +53,7 @@ public class UserInfoController {
 
     @PostMapping("disable")
     public CommonResult<Boolean> disableUser(@RequestBody SysUser sysUser){
-        boolean result = userInfoService.deleteUser(sysUser);
+        boolean result = userInfoService.disableUser(sysUser);
         return CommonResult.success(result);
     }
 

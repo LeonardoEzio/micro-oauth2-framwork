@@ -24,7 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .disable()
             .authorizeRequests()
             .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
-            .mvcMatchers("/oauth/**","/user/find").permitAll()
+            .mvcMatchers("/oauth/**","/user/**").permitAll()
             .anyRequest().authenticated();
     }
 

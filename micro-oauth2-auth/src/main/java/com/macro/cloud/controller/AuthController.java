@@ -3,7 +3,8 @@ package com.macro.cloud.controller;
 import cn.hutool.core.util.StrUtil;
 import com.macro.cloud.api.CommonResult;
 import com.macro.cloud.domain.Oauth2TokenDto;
-import com.macro.cloud.domain.security.TokenVerifyRequest;
+import com.macro.cloud.security.constant.SecurityConstant;
+import com.macro.cloud.feign.request.TokenVerifyRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
@@ -39,7 +40,7 @@ public class AuthController {
                 .token(oAuth2AccessToken.getValue())
                 .refreshToken(oAuth2AccessToken.getRefreshToken().getValue())
                 .expiresIn(oAuth2AccessToken.getExpiresIn())
-                .tokenHead("Bearer ").build();
+                .tokenHead(SecurityConstant.TOKEN_TYPE).build();
         return CommonResult.success(oauth2TokenDto);
     }
 

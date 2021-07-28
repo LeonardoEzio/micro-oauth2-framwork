@@ -1,7 +1,7 @@
 package com.macro.cloud.filter;
 
 import com.macro.cloud.config.IgnoreUrlsConfig;
-import com.macro.cloud.constant.AuthConstant;
+import com.macro.cloud.security.constant.SecurityConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
@@ -16,13 +16,17 @@ import java.net.URI;
 import java.util.List;
 
 /**
- * 白名单路径访问时需要移除JWT请求头
- * Created by macro on 2020/7/24.
+ * 网关白名单过滤器
+ *
+ * 移除白名单请求中的认证信息
+ *
  */
 @Component
-public class IgnoreUrlsRemoveJwtFilter implements WebFilter {
+public class IgnoreUrlsFilter implements WebFilter {
+
     @Autowired
     private IgnoreUrlsConfig ignoreUrlsConfig;
+
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
@@ -32,7 +36,7 @@ public class IgnoreUrlsRemoveJwtFilter implements WebFilter {
         List<String> ignoreUrls = ignoreUrlsConfig.getUrls();
         for (String ignoreUrl : ignoreUrls) {
             if (pathMatcher.match(ignoreUrl, uri.getPath())) {
-                request = exchange.getRequest().mutate().header("Authorization", "").build();
+                request = exchange.getRequest().mutate().header(SecurityConstant.AUTHORIZATION_HEAD, "").build();
                 exchange = exchange.mutate().request(request).build();
                 return chain.filter(exchange);
             }

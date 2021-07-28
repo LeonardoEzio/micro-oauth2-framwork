@@ -4,7 +4,7 @@ import com.macro.cloud.api.CommonResult;
 import com.macro.cloud.client.UserInfoClient;
 import com.macro.cloud.constant.MessageConstant;
 import com.macro.cloud.domain.SecurityUser;
-import com.macro.cloud.domain.security.UserInfo;
+import com.macro.cloud.security.entity.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.CredentialsExpiredException;

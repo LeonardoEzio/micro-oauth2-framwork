@@ -3,8 +3,8 @@ package com.macro.cloud.client.fallback;
 
 import com.macro.cloud.api.CommonResult;
 import com.macro.cloud.client.TokenClient;
-import com.macro.cloud.domain.security.Oauth2TokenInfo;
-import com.macro.cloud.domain.security.TokenVerifyRequest;
+import com.macro.cloud.security.entity.Oauth2TokenInfo;
+import com.macro.cloud.feign.request.TokenVerifyRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

@@ -8,7 +8,6 @@ import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.http.server.reactive.ServerHttpRequest;
-import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
@@ -18,7 +17,7 @@ import java.text.ParseException;
  * 将登录用户的JWT转化成用户信息的全局过滤器
  * Created by macro on 2020/6/17.
  */
-@Component
+//@Component
 public class AuthGlobalFilter implements GlobalFilter, Ordered {
 
     private static Logger LOGGER = LoggerFactory.getLogger(AuthGlobalFilter.class);

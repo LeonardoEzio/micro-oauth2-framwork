@@ -4,7 +4,7 @@ import cn.hutool.core.util.ArrayUtil;
 import com.macro.cloud.authorization.AuthorizationManager;
 import com.macro.cloud.component.RestAuthenticationEntryPoint;
 import com.macro.cloud.component.RestfulAccessDeniedHandler;
-import com.macro.cloud.filter.IgnoreUrlsRemoveJwtFilter;
+import com.macro.cloud.filter.IgnoreUrlsFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -32,7 +32,7 @@ public class ResourceServerConfig {
     private final IgnoreUrlsConfig ignoreUrlsConfig;
     private final RestfulAccessDeniedHandler restfulAccessDeniedHandler;
     private final RestAuthenticationEntryPoint restAuthenticationEntryPoint;
-    private final IgnoreUrlsRemoveJwtFilter ignoreUrlsRemoveJwtFilter;
+    private final IgnoreUrlsFilter ignoreUrlsFilter;
 
     @Bean
     @ConditionalOnMissingBean
@@ -47,7 +47,7 @@ public class ResourceServerConfig {
         //自定义处理JWT请求头过期或签名错误的结果
 //        http.oauth2ResourceServer().authenticationEntryPoint(restAuthenticationEntryPoint);
         //对白名单路径，直接移除JWT请求头
-        http.addFilterBefore(ignoreUrlsRemoveJwtFilter, SecurityWebFiltersOrder.AUTHENTICATION);
+        http.addFilterBefore(ignoreUrlsFilter, SecurityWebFiltersOrder.AUTHENTICATION);
         http.authorizeExchange()
                 .pathMatchers(ArrayUtil.toArray(ignoreUrlsConfig.getUrls(),String.class)).permitAll()//白名单配置
                 .anyExchange().access(authorizationManager)//鉴权管理器配置

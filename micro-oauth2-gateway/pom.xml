@@ -44,12 +44,6 @@
             <version>${spring-security-jwt.version}</version>
         </dependency>
 
-        <!-- redis -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-
         <!-- rpc -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -69,10 +63,23 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- caffeine cache -->
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+            <version>${caffeine-cache.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>com.macro.cloud</groupId>
             <artifactId>micro-oauth2-common</artifactId>
             <version>1.0.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.nimbusds</groupId>
+                    <artifactId>nimbus-jose-jwt</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 

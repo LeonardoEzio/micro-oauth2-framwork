@@ -3,7 +3,7 @@ package com.macro.cloud.client.fallback;
 
 import com.macro.cloud.api.CommonResult;
 import com.macro.cloud.client.UserInfoClient;
-import com.macro.cloud.domain.security.UserInfo;
+import com.macro.cloud.security.entity.UserInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;

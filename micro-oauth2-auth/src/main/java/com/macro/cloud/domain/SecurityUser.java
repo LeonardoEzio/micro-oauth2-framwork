@@ -1,7 +1,8 @@
 package com.macro.cloud.domain;
 
-import com.macro.cloud.domain.security.RoleInfo;
-import com.macro.cloud.domain.security.UserInfo;
+
+import com.macro.cloud.security.entity.RoleInfo;
+import com.macro.cloud.security.entity.UserInfo;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
