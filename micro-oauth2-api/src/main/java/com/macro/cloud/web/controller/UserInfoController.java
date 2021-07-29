@@ -1,11 +1,11 @@
 package com.macro.cloud.web.controller;
 
+import cloud.api.CommonResult;
+import cloud.security.entity.UserInfo;
+import cloud.security.entity.UserToken;
 import cn.hutool.core.bean.BeanUtil;
-import com.macro.cloud.api.CommonResult;
 import com.macro.cloud.dao.entity.SysUser;
 import com.macro.cloud.holder.LoginUserHolder;
-import com.macro.cloud.security.entity.UserInfo;
-import com.macro.cloud.security.entity.UserToken;
 import com.macro.cloud.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

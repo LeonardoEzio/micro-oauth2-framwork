@@ -1,4 +1,4 @@
-package com.macro.cloud.security.entity;
+package cloud.security.entity;
 
 import lombok.Builder;
 import lombok.Data;

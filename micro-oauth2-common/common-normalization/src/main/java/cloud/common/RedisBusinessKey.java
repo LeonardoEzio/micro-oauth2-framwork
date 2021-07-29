@@ -1,4 +1,4 @@
-package com.macro.cloud.common;
+package cloud.common;
 
 /**
  * @Author : LeonardoEzio

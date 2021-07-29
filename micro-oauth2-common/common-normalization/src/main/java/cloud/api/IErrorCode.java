@@ -1,4 +1,4 @@
-package com.macro.cloud.api;
+package cloud.api;
 
 /**
  * 封装API的错误码

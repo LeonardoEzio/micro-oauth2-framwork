@@ -1,4 +1,4 @@
-package com.macro.cloud.feign.constant;
+package cloud.feign.constant;
 
 /**
  * @Author : LeonardoEzio

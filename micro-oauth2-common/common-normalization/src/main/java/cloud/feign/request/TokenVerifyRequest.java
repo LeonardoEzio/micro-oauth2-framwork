@@ -1,4 +1,4 @@
-package com.macro.cloud.feign.request;
+package cloud.feign.request;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

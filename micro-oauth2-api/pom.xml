@@ -52,7 +52,7 @@
         <!-- common 包依赖 -->
         <dependency>
             <groupId>com.macro.cloud</groupId>
-            <artifactId>micro-oauth2-common</artifactId>
+            <artifactId>common-normalization</artifactId>
             <version>1.0.0</version>
         </dependency>
     </dependencies>

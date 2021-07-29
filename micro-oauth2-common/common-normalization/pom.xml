@@ -3,16 +3,19 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>micro-oauth2</artifactId>
+        <artifactId>micro-oauth2-common</artifactId>
         <groupId>com.macro.cloud</groupId>
         <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>micro-oauth2-common</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>common-normalization</module>
-        <module>common-log</module>
-    </modules>
+    <artifactId>common-normalization</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.nimbusds</groupId>
+            <artifactId>nimbus-jose-jwt</artifactId>
+            <version>8.16</version>
+        </dependency>
+    </dependencies>
 </project>

@@ -1,4 +1,4 @@
-package com.macro.cloud.api;
+package cloud.api;
 
 /**
  * 枚举了一些常用API操作码

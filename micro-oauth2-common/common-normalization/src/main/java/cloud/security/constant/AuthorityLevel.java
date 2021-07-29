@@ -1,4 +1,4 @@
-package com.macro.cloud.security.constant;
+package cloud.security.constant;
 
 /**
  * @Author : LeonardoEzio

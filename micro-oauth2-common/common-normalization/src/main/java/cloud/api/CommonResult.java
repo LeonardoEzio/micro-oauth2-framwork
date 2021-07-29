@@ -1,4 +1,4 @@
-package com.macro.cloud.api;
+package cloud.api;
 
 /**
  * 通用返回对象
