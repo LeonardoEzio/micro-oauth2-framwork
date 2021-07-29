@@ -2,10 +2,12 @@ package com.macro.cloud.service;
 
 import com.macro.cloud.api.CommonResult;
 import com.macro.cloud.client.UserInfoClient;
+import com.macro.cloud.common.RedisBusinessKey;
 import com.macro.cloud.constant.MessageConstant;
 import com.macro.cloud.domain.SecurityUser;
 import com.macro.cloud.security.entity.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.CredentialsExpiredException;
 import org.springframework.security.authentication.DisabledException;
@@ -21,6 +23,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserServiceImpl implements UserDetailsService {
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Autowired
     private UserInfoClient userInfoClient;
@@ -41,6 +46,9 @@ public class UserServiceImpl implements UserDetailsService {
         } else if (!securityUser.isCredentialsNonExpired()) {
             throw new CredentialsExpiredException(MessageConstant.CREDENTIALS_EXPIRED);
         }
+        //缓存用户的菜单权限
+        redisTemplate.delete(String.format(RedisBusinessKey.USER_ACCESS_MENU, securityUser.getUsername()));
+        redisTemplate.opsForList().rightPushAll(String.format(RedisBusinessKey.USER_ACCESS_MENU, securityUser.getUsername()),userResult.getData().getMenus());
         return securityUser;
     }
 

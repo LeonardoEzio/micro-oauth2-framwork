@@ -38,10 +38,13 @@ public class SecurityUser implements UserDetails {
      */
     private Boolean enabled;
 
+
     private Collection<RoleInfo> roleInfos;
 
     /**
      * 权限url
+     *
+     * 2021、07、29弃用 url过多导致token过长
      */
     private Collection<SimpleGrantedAuthority> authorities;
 
@@ -61,10 +64,6 @@ public class SecurityUser implements UserDetails {
                 roleInfo.setRoleName(role);
                 roleInfos.add(roleInfo);
             });
-        }
-        if (userInfo.getMenus() != null) {
-            authorities = new ArrayList<>();
-            userInfo.getMenus().forEach(item -> authorities.add(new SimpleGrantedAuthority(item)));
         }
     }
 

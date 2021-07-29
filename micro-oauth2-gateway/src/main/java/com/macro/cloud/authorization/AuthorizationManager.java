@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.macro.cloud.api.CommonResult;
 import com.macro.cloud.cache.CacheManager;
 import com.macro.cloud.client.TokenClient;
+import com.macro.cloud.common.RedisBusinessKey;
 import com.macro.cloud.feign.request.TokenVerifyRequest;
 import com.macro.cloud.security.constant.AuthorityLevel;
 import com.macro.cloud.security.constant.SecurityConstant;
@@ -13,6 +14,7 @@ import com.macro.cloud.security.entity.UserToken;
 import com.macro.cloud.security.util.JwtTokenExtract;
 import com.macro.cloud.util.UrlPatternMatchUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.security.authorization.AuthorizationDecision;
 import org.springframework.security.authorization.ReactiveAuthorizationManager;
@@ -40,6 +42,9 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
 
     @Autowired
     private CacheManager cacheManager;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Override
     public Mono<AuthorizationDecision> check(Mono<Authentication> mono, AuthorizationContext authorizationContext) {
@@ -72,16 +77,15 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
                 return mono.just(new AuthorizationDecision(true));
             }
 
-            //2. 菜单校验 解析出token中的菜单信息进行校验
+            //2. 菜单校验 从token中解析出用户名 并从redis缓存中获取用户的菜单权限进行校验
             UserToken userToken = JwtTokenExtract.extractToken(token);
-            List<String> authedPath = userToken.getAuthorities();
+            List<String> accessPaths = redisTemplate.opsForList().range(String.format(RedisBusinessKey.USER_ACCESS_MENU, userToken.getUserName()), 0, -1);
             PathMatcher pathMatcher = new AntPathMatcher();
-            for (String path : authedPath) {
+            for (String path : accessPaths) {
                 if (pathMatcher.match(path,requestUri)) {
                     return mono.just(new AuthorizationDecision(true));
                 }
             }
-
             return Mono.just(new AuthorizationDecision(false));
         }
     }

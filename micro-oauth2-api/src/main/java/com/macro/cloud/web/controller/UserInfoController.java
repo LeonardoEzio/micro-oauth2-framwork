@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @Author : LeonardoEzio
@@ -44,8 +46,14 @@ public class UserInfoController {
         if (sysUser != null){
             UserInfo userInfo = BeanUtil.copyProperties(sysUser, UserInfo.class);
             userInfo.setRoles(Arrays.asList("admin","sysadmin"));
-            userInfo.setMenus(Arrays.asList("/api/user/add"));
+//            userInfo.setMenus(Arrays.asList("/api/user/add"));
+            List<String> menus = new ArrayList<>();
+            menus.add("/api/user/add");
+            for (int i = 0 ; i < 9999 ; i++){
+                menus.add(String.format("/api/user/%s", i));
+            }
             //"/api/user/disable"
+            userInfo.setMenus(menus);
             return CommonResult.success(userInfo);
         }
         return CommonResult.failed();
