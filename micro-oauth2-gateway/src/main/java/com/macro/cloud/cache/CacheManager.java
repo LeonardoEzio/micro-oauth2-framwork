@@ -1,10 +1,11 @@
 package com.macro.cloud.cache;
 
+import com.macro.cloud.api.CommonResult;
+import com.macro.cloud.security.entity.OauthUrlValidator;
 import cn.hutool.core.collection.CollUtil;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
-import com.macro.cloud.client.OauthUrlClient;
-import com.macro.cloud.security.entity.OauthUrlValidator;
+import com.macro.cloud.feign.client.RemoteOauthUrlClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 public class CacheManager{
 
     @Autowired
-    private OauthUrlClient oauthUrlClient;
+    private RemoteOauthUrlClient oauthUrlClient;
 
     private static final String OAUTH_URL_KEY = "oauthUrl";
 
@@ -31,7 +32,8 @@ public class CacheManager{
     public List<OauthUrlValidator> getOauthUrl(){
         List<OauthUrlValidator> oauthUrls = oauthUrlCache.getIfPresent(OAUTH_URL_KEY);
         if (CollUtil.isEmpty(oauthUrls)){
-            oauthUrls = oauthUrlClient.syncOauthUrl().getData();
+            CommonResult<List<OauthUrlValidator>> result = oauthUrlClient.syncOauthUrl();
+            oauthUrls = result.getData();
             if (CollUtil.isNotEmpty(oauthUrls)){
                 oauthUrlCache.put(OAUTH_URL_KEY, oauthUrls);
             }

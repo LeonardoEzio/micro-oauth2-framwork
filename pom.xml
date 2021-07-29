@@ -11,7 +11,7 @@
     <modules>
         <module>micro-oauth2-gateway</module>
         <module>micro-oauth2-auth</module>
-        <module>micro-oauth2-api</module>
+        <module>micro-oauth2-business</module>
         <module>micro-oauth2-common</module>
     </modules>
 

@@ -1,7 +1,7 @@
 package com.macro.cloud.config;
 
 import com.macro.cloud.component.JwtTokenEnhancer;
-import com.macro.cloud.service.UserServiceImpl;
+import com.macro.cloud.service.CustomerUserDetailService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,7 +36,7 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
     private final JwtTokenEnhancer jwtTokenEnhancer;
     private final JwtAccessTokenConverter accessTokenConverter;
 
-    private final UserServiceImpl userDetailsService;
+    private final CustomerUserDetailService userDetailsService;
     private final AuthenticationManager authenticationManager;
 
     @Override

@@ -1,9 +1,6 @@
 package com.macro.cloud.authorization;
 
-import cn.hutool.core.util.StrUtil;
 import com.macro.cloud.api.CommonResult;
-import com.macro.cloud.cache.CacheManager;
-import com.macro.cloud.client.TokenClient;
 import com.macro.cloud.common.RedisBusinessKey;
 import com.macro.cloud.feign.request.TokenVerifyRequest;
 import com.macro.cloud.security.constant.AuthorityLevel;
@@ -12,6 +9,9 @@ import com.macro.cloud.security.entity.Oauth2TokenInfo;
 import com.macro.cloud.security.entity.OauthUrlValidator;
 import com.macro.cloud.security.entity.UserToken;
 import com.macro.cloud.security.util.JwtTokenExtract;
+import cn.hutool.core.util.StrUtil;
+import com.macro.cloud.cache.CacheManager;
+import com.macro.cloud.feign.client.RemoteTokenClient;
 import com.macro.cloud.util.UrlPatternMatchUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -38,10 +38,10 @@ import java.util.List;
 public class AuthorizationManager implements ReactiveAuthorizationManager<AuthorizationContext> {
 
     @Autowired
-    private TokenClient tokenClient;
+    private CacheManager cacheManager;
 
     @Autowired
-    private CacheManager cacheManager;
+    private RemoteTokenClient tokenClient;
 
     @Autowired
     private RedisTemplate redisTemplate;
