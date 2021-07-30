@@ -50,10 +50,11 @@
         </dependency>
 
         <!-- common 包依赖 -->
+
         <dependency>
             <groupId>com.macro.cloud</groupId>
-            <artifactId>common-normalization</artifactId>
-            <version>1.0.0</version>
+            <artifactId>common-log</artifactId>
+            <version>${version}</version>
         </dependency>
     </dependencies>
 </project>

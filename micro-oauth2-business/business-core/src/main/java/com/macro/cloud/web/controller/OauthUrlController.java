@@ -3,7 +3,7 @@ package com.macro.cloud.web.controller;
 
 import com.macro.cloud.api.CommonResult;
 import com.macro.cloud.security.constant.AuthorityLevel;
-import com.macro.cloud.security.entity.OauthUrlValidator;
+import com.macro.cloud.feign.entity.OauthUrlValidator;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

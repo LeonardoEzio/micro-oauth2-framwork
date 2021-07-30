@@ -3,7 +3,7 @@ package com.macro.cloud.feign.client;
 
 import com.macro.cloud.api.CommonResult;
 import com.macro.cloud.feign.constant.FeignClientName;
-import com.macro.cloud.security.entity.OauthUrlValidator;
+import com.macro.cloud.feign.entity.OauthUrlValidator;
 import com.macro.cloud.feign.factory.RemoteOauthUrlFallBackFactory;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;

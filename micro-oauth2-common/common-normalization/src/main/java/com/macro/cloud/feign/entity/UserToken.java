@@ -1,4 +1,4 @@
-package com.macro.cloud.security.entity;
+package com.macro.cloud.feign.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;

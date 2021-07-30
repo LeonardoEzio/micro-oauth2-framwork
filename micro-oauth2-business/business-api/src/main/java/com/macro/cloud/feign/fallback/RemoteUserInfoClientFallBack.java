@@ -2,7 +2,7 @@ package com.macro.cloud.feign.fallback;
 
 
 import com.macro.cloud.api.CommonResult;
-import com.macro.cloud.security.entity.UserInfo;
+import com.macro.cloud.feign.entity.UserInfo;
 import com.macro.cloud.feign.client.RemoteUserInfoClient;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;

@@ -1,7 +1,7 @@
 package com.macro.cloud.cache;
 
 import com.macro.cloud.api.CommonResult;
-import com.macro.cloud.security.entity.OauthUrlValidator;
+import com.macro.cloud.feign.entity.OauthUrlValidator;
 import cn.hutool.core.collection.CollUtil;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;

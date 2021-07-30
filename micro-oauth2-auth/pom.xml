@@ -67,16 +67,11 @@
         </dependency>
 
         <!-- 内部项目依赖 -->
-        <dependency>
-            <groupId>com.macro.cloud</groupId>
-            <artifactId>common-normalization</artifactId>
-            <version>${version}</version>
-        </dependency>
 
         <dependency>
             <groupId>com.macro.cloud</groupId>
-            <artifactId>business-api</artifactId>
-            <version>1.0.0</version>
+            <artifactId>common-log</artifactId>
+            <version>${version}</version>
         </dependency>
     </dependencies>
 

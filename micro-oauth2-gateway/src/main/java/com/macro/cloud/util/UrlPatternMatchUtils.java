@@ -2,7 +2,7 @@ package com.macro.cloud.util;
 
 
 import com.macro.cloud.security.constant.AuthorityLevel;
-import com.macro.cloud.security.entity.OauthUrlValidator;
+import com.macro.cloud.feign.entity.OauthUrlValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.PatternMatchUtils;
 

@@ -2,7 +2,7 @@ package com.macro.cloud.service;
 
 import com.macro.cloud.api.CommonResult;
 import com.macro.cloud.common.RedisBusinessKey;
-import com.macro.cloud.security.entity.UserInfo;
+import com.macro.cloud.feign.entity.UserInfo;
 import com.macro.cloud.constant.MessageConstant;
 import com.macro.cloud.domain.SecurityUser;
 import com.macro.cloud.feign.client.RemoteUserInfoClient;

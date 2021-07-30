@@ -3,7 +3,7 @@ package com.macro.cloud.feign.client;
 
 import com.macro.cloud.api.CommonResult;
 import com.macro.cloud.feign.constant.FeignClientName;
-import com.macro.cloud.security.entity.UserInfo;
+import com.macro.cloud.feign.entity.UserInfo;
 import com.macro.cloud.feign.factory.RemoteUserInfoFallBackFactory;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;

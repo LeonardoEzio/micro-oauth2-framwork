@@ -1,10 +1,15 @@
 package com.macro.cloud.web.controller;
 
-import com.macro.cloud.api.CommonResult;
-import com.macro.cloud.security.entity.UserInfo;
-import com.macro.cloud.security.entity.UserToken;
 import cn.hutool.core.bean.BeanUtil;
+import com.macro.cloud.annotation.LogModule;
+import com.macro.cloud.annotation.SysLog;
+import com.macro.cloud.api.CommonResult;
 import com.macro.cloud.dao.entity.SysUser;
+import com.macro.cloud.enums.LogPlat;
+import com.macro.cloud.enums.LogType;
+import com.macro.cloud.enums.OperationType;
+import com.macro.cloud.feign.entity.UserInfo;
+import com.macro.cloud.feign.entity.UserToken;
 import com.macro.cloud.holder.LoginUserHolder;
 import com.macro.cloud.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +26,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("user")
+@LogModule(plat = LogPlat.MES)
 public class UserInfoController {
 
     @Resource
@@ -30,6 +36,7 @@ public class UserInfoController {
     private LoginUserHolder loginUserHolder;
 
     @PostMapping("add")
+    @SysLog(name = "添加用户",type = LogType.BUSINESS, operation = OperationType.ADD)
     public CommonResult<SysUser> addUser(@RequestBody SysUser sysUser){
         SysUser result = userInfoService.addUser(sysUser);
         return CommonResult.success(result);

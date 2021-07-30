@@ -1,7 +1,7 @@
 package com.macro.cloud.security.util;
 
 import com.macro.cloud.security.constant.SecurityConstant;
-import com.macro.cloud.security.entity.UserToken;
+import com.macro.cloud.feign.entity.UserToken;
 import cn.hutool.json.JSONUtil;
 import com.nimbusds.jose.JWSObject;
 

@@ -2,7 +2,7 @@ package com.macro.cloud.holder;
 
 
 import com.macro.cloud.security.constant.SecurityConstant;
-import com.macro.cloud.security.entity.UserToken;
+import com.macro.cloud.feign.entity.UserToken;
 import com.macro.cloud.security.util.JwtTokenExtract;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;

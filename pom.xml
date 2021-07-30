@@ -31,6 +31,9 @@
         <pageHelper.version>1.2.13</pageHelper.version>
         <mybatis-plus-boot-starter.version>3.3.1</mybatis-plus-boot-starter.version>
         <caffeine-cache.version>2.6.2</caffeine-cache.version>
+        <commons-lang3.version>3.9</commons-lang3.version>
+        <commons-collections4.version>4.4</commons-collections4.version>
+        <jansi.version>1.18</jansi.version>
     </properties>
 
     <dependencyManagement>
@@ -71,10 +74,18 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -86,11 +97,13 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>

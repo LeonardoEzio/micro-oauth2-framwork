@@ -4,7 +4,7 @@ package com.macro.cloud.feign.client;
 import com.macro.cloud.api.CommonResult;
 import com.macro.cloud.feign.constant.FeignClientName;
 import com.macro.cloud.feign.request.TokenVerifyRequest;
-import com.macro.cloud.security.entity.Oauth2TokenInfo;
+import com.macro.cloud.feign.entity.Oauth2TokenInfo;
 import com.macro.cloud.feign.factory.RemoteTokenFallBackFactory;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
