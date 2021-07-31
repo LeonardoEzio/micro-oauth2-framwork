@@ -1,0 +1,14 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        server-addr: 121.37.19.237:8848
+        enabled: true
+        username: admin
+        password: Kk2-!Hmojpl331
+        file-extension: yaml
+      discovery:
+        server-addr: 121.37.19.237:8848
+        enabled: true
+        username: admin
+        password: Kk2-!Hmojpl331
