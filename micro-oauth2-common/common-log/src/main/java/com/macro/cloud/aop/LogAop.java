@@ -67,13 +67,13 @@ public abstract class LogAop {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LogAop.class);
 
+    @Autowired
+    protected RemoteLogClient remoteLogClient;
+
     /**
      * 零
      */
     private static final int ZERO = 0;
-
-    @Autowired
-    protected RemoteLogClient remoteLogClient;
 
     /**
      * 请求ID
@@ -96,7 +96,7 @@ public abstract class LogAop {
     /**
      * 项目上下文路径
      */
-    @Value("${server.servlet.context-path}")
+    @Value("${server.servlet.context-path:/}")
     private String contextPath;
 
     /**
@@ -229,7 +229,9 @@ public abstract class LogAop {
             // 获取登录用户信息
             String token = request.getHeader(SecurityConstant.AUTHORIZATION_HEAD);
             UserToken userToken = JwtTokenExtract.extractToken(token);
-            requestInfo.setUserName(userToken.getUserName());
+            if (null != userToken){
+                requestInfo.setUserName(userToken.getUserName());
+            }
 
             // 请求路径 /api/foobar/add
             String path = request.getRequestURI();
@@ -480,9 +482,9 @@ public abstract class LogAop {
         String requestInfoString = null;
         try {
             if (logAopConfig.isFormatRequest()) {
-                requestInfoString = "\n" + Jackson.toJsonStringNonNull(requestInfo, true);
+                requestInfoString = String.format("\n request info : [%s]",Jackson.toJsonStringNonNull(requestInfo, true));
             } else {
-                requestInfoString = Jackson.toJsonStringNonNull(requestInfo);
+                requestInfoString = String.format("request info : [%s]",Jackson.toJsonStringNonNull(requestInfo));
             }
         } catch (Exception e) {
             LOGGER.error("格式化请求信息日志异常", e);
@@ -506,12 +508,12 @@ public abstract class LogAop {
      * @return
      */
     protected String formatResponseResult(CommonResult<?> result) {
-        String responseResultString = "responseResult:";
+        String responseResultString = null;
         try {
             if (logAopConfig.isFormatResponse()) {
-                responseResultString += "\n" + Jackson.toJsonString(result, true);
+                responseResultString = String.format("\n response info : [%s]",Jackson.toJsonString(result, true));
             } else {
-                responseResultString += Jackson.toJsonString(result);
+                responseResultString = String.format("response info : [%s]",Jackson.toJsonString(result));
             }
         } catch (Exception e) {
             LOGGER.error("格式化响应日志异常", e);
@@ -756,6 +758,7 @@ public abstract class LogAop {
 
         } catch (Exception e) {
             LOGGER.error("保存系统操作日志失败 : {}", e);
+//            throw e;
         }
     }
 
@@ -777,6 +780,10 @@ public abstract class LogAop {
         requestInfoThreadLocal.remove();
         logInfoThreadLocal.remove();
         MDC.clear();
+    }
+
+    public static void main(String[] args) {
+        System.out.println("aaaa"+"\n"+"bbbb");
     }
 
 }

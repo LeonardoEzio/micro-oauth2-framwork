@@ -2,6 +2,8 @@ package com.macro.cloud.component;
 
 import com.macro.cloud.api.CommonResult;
 import cn.hutool.json.JSONUtil;
+import com.macro.cloud.api.ResultCode;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -26,8 +28,32 @@ public class RestAuthenticationEntryPoint implements ServerAuthenticationEntryPo
         ServerHttpResponse response = exchange.getResponse();
         response.setStatusCode(HttpStatus.OK);
         response.getHeaders().add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-        String body= JSONUtil.toJsonStr(CommonResult.unauthorized(e.getMessage()));
-        DataBuffer buffer =  response.bufferFactory().wrap(body.getBytes(Charset.forName("UTF-8")));
+
+        String responseBody = "";
+        String causeCode = e.getCause().getMessage();
+        if (isResultCode(causeCode)){
+            long resultCode = Long.valueOf(causeCode);
+            ResultCode code = ResultCode.findByCode(resultCode);
+            if (null != code){
+                responseBody= JSONUtil.toJsonStr(CommonResult.failed(code));
+            }
+        } else {
+            responseBody= JSONUtil.toJsonStr(CommonResult.failed(e.getMessage()));
+        }
+
+        DataBuffer buffer =  response.bufferFactory().wrap(responseBody.getBytes(Charset.forName("UTF-8")));
         return response.writeWith(Mono.just(buffer));
+    }
+
+    private boolean isResultCode(String message){
+        if (StringUtils.isNotEmpty(message)){
+            for (char c : message.toCharArray()) {
+                if (!Character.isDigit(c)){
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
     }
 }

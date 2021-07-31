@@ -1,8 +1,13 @@
 package com.macro.cloud.controller;
 
 import cn.hutool.core.util.StrUtil;
+import com.macro.cloud.annotation.LogModule;
+import com.macro.cloud.annotation.SysLog;
 import com.macro.cloud.api.CommonResult;
 import com.macro.cloud.domain.Oauth2TokenDto;
+import com.macro.cloud.enums.LogPlat;
+import com.macro.cloud.enums.LogType;
+import com.macro.cloud.enums.OperationType;
 import com.macro.cloud.feign.request.TokenVerifyRequest;
 import com.macro.cloud.security.constant.SecurityConstant;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +27,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/oauth")
+@LogModule(name = "授权模块",plat = LogPlat.AUTH)
 public class AuthController {
 
     @Autowired
@@ -34,6 +40,7 @@ public class AuthController {
      * Oauth2登录认证
      */
     @PostMapping(value = "/token")
+    @SysLog(name = "获取令牌",type = LogType.LOGGING,operation = OperationType.LOGIN)
     public CommonResult<Oauth2TokenDto> postAccessToken(Principal principal, @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
         OAuth2AccessToken oAuth2AccessToken = tokenEndpoint.postAccessToken(principal, parameters).getBody();
         Oauth2TokenDto oauth2TokenDto = Oauth2TokenDto.builder()

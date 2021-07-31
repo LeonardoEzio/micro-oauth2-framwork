@@ -62,6 +62,10 @@ public class CommonResult<T> {
         return new CommonResult<T>(ResultCode.FAILED.getCode(), message, null);
     }
 
+    public static <T> CommonResult<T> failed(long code,String message) {
+        return new CommonResult<T>(code, message, null);
+    }
+
     /**
      * 失败返回结果
      */
@@ -88,7 +92,7 @@ public class CommonResult<T> {
      * 未登录返回结果
      */
     public static <T> CommonResult<T> unauthorized(T data) {
-        return new CommonResult<T>(ResultCode.UNAUTHORIZED.getCode(), ResultCode.UNAUTHORIZED.getMessage(), data);
+        return new CommonResult<T>(ResultCode.UN_LOGGING.getCode(), ResultCode.UN_LOGGING.getMessage(), data);
     }
 
     /**

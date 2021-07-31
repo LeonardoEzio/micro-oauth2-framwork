@@ -4,6 +4,7 @@ import com.macro.cloud.security.constant.SecurityConstant;
 import com.macro.cloud.feign.entity.UserToken;
 import cn.hutool.json.JSONUtil;
 import com.nimbusds.jose.JWSObject;
+import org.apache.commons.lang3.StringUtils;
 
 import java.text.ParseException;
 
@@ -21,9 +22,11 @@ public class JwtTokenExtract {
         UserToken userToken = null;
         realToken = realToken.contains(SecurityConstant.TOKEN_TYPE) ? realToken.replace(SecurityConstant.TOKEN_TYPE, "") : realToken;
         try {
-            JWSObject jwsToken = JWSObject.parse(realToken);
-            String tokenStr = JSONUtil.toJsonStr(jwsToken.getPayload().toJSONObject());
-            userToken = JSONUtil.toBean(tokenStr, UserToken.class);
+            if (StringUtils.isNotEmpty(realToken)){
+                JWSObject jwsToken = JWSObject.parse(realToken);
+                String tokenStr = JSONUtil.toJsonStr(jwsToken.getPayload().toJSONObject());
+                userToken = JSONUtil.toBean(tokenStr, UserToken.class);
+            }
         } catch (ParseException e) {
             e.printStackTrace();
         }

@@ -1,21 +1,23 @@
 package com.macro.cloud.authorization;
 
+import cn.hutool.core.util.StrUtil;
 import com.macro.cloud.api.CommonResult;
+import com.macro.cloud.api.ResultCode;
+import com.macro.cloud.cache.CacheManager;
 import com.macro.cloud.common.RedisBusinessKey;
-import com.macro.cloud.feign.request.TokenVerifyRequest;
-import com.macro.cloud.security.constant.AuthorityLevel;
-import com.macro.cloud.security.constant.SecurityConstant;
+import com.macro.cloud.feign.client.RemoteTokenClient;
 import com.macro.cloud.feign.entity.Oauth2TokenInfo;
 import com.macro.cloud.feign.entity.OauthUrlValidator;
 import com.macro.cloud.feign.entity.UserToken;
+import com.macro.cloud.feign.request.TokenVerifyRequest;
+import com.macro.cloud.security.constant.AuthorityLevel;
+import com.macro.cloud.security.constant.SecurityConstant;
 import com.macro.cloud.security.util.JwtTokenExtract;
-import cn.hutool.core.util.StrUtil;
-import com.macro.cloud.cache.CacheManager;
-import com.macro.cloud.feign.client.RemoteTokenClient;
 import com.macro.cloud.util.UrlPatternMatchUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authorization.AuthorizationDecision;
 import org.springframework.security.authorization.ReactiveAuthorizationManager;
 import org.springframework.security.core.Authentication;
@@ -66,10 +68,10 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
                 token = request.getHeaders().getFirst(SecurityConstant.AUTHORIZATION_HEAD).replace(SecurityConstant.TOKEN_TYPE, "");
                 CommonResult<Oauth2TokenInfo> tokenVerify = tokenClient.verifyAccessToken(new TokenVerifyRequest().setAccessToken(token));
                 if (tokenVerify.getCode() == 500){
-                    return mono.just(new AuthorizationDecision(false));
+                    throw new AccessDeniedException(String.valueOf(ResultCode.TOKEN_EXPIRED.getCode()));
                 }
             }else {
-                return mono.just(new AuthorizationDecision(false));
+                throw new AccessDeniedException(String.valueOf(ResultCode.UN_LOGGING.getCode()));
             }
 
             //若是只验证token 则放行
@@ -86,7 +88,8 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
                     return mono.just(new AuthorizationDecision(true));
                 }
             }
-            return Mono.just(new AuthorizationDecision(false));
+
+            throw new AccessDeniedException(String.valueOf(ResultCode.FORBIDDEN.getCode()));
         }
     }
 }

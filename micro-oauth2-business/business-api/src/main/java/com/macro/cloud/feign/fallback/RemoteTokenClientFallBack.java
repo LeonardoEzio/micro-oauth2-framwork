@@ -22,6 +22,7 @@ public class RemoteTokenClientFallBack implements RemoteTokenClient {
 
     @Override
     public CommonResult<Oauth2TokenInfo> verifyAccessToken(TokenVerifyRequest tokenVerifyRequest) {
+        log.error("auth service fallback !!! {}",cause.getMessage());
         return CommonResult.failed(cause.getMessage());
     }
 }

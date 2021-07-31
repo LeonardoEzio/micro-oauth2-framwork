@@ -52,8 +52,8 @@ public class ResourceServerConfig {
                 .pathMatchers(ArrayUtil.toArray(ignoreUrlsConfig.getUrls(),String.class)).permitAll()//白名单配置
                 .anyExchange().access(authorizationManager)//鉴权管理器配置
                 .and().exceptionHandling()
-                .accessDeniedHandler(restfulAccessDeniedHandler)//处理未授权
                 .authenticationEntryPoint(restAuthenticationEntryPoint)//处理未认证
+                .accessDeniedHandler(restfulAccessDeniedHandler)//处理未授权
                 .and().csrf().disable();
         return http.build();
     }

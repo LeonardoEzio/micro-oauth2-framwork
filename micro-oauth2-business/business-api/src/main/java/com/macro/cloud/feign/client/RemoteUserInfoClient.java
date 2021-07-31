@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @Author : LeonardoEzio
  * @Date: 2021-07-26 14:40
  */
-@FeignClient(contextId = "user" ,value = FeignClientName.BUSINESS_SERVER,fallback = RemoteUserInfoFallBackFactory.class)
+@FeignClient(contextId = "user" ,value = FeignClientName.BUSINESS_SERVER,fallbackFactory = RemoteUserInfoFallBackFactory.class)
 public interface RemoteUserInfoClient {
 
     @GetMapping("/api/user/getByName")

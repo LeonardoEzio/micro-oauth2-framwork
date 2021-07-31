@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  * @Date: 2021-07-30 15:21
  */
 @Component
-public class RemoteLOgFallBackFactory implements FallbackFactory<RemoteLogClient> {
+public class RemoteLogFallBackFactory implements FallbackFactory<RemoteLogClient> {
 
     @Override
     public RemoteLogClient create(Throwable throwable) {

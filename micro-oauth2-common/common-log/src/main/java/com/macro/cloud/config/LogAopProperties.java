@@ -11,7 +11,7 @@ import java.util.Set;
  * @Date: 2021-07-30 14:47
  */
 @Configuration
-@ConfigurationProperties(prefix = "log.aop")
+@ConfigurationProperties(prefix = "aop")
 public class LogAopProperties {
 
     @NestedConfigurationProperty

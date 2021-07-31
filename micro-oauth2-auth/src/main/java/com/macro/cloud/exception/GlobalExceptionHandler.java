@@ -1,7 +1,7 @@
 package com.macro.cloud.exception;
 
 import com.macro.cloud.api.CommonResult;
-import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -11,10 +11,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Created by macro on 2020/7/17.
  */
 @ControllerAdvice
-public class Oauth2ExceptionHandler {
+public class GlobalExceptionHandler {
     @ResponseBody
-    @ExceptionHandler(value = OAuth2Exception.class)
-    public CommonResult handleOauth2(OAuth2Exception e) {
+    @ExceptionHandler(value = Exception.class)
+    public CommonResult handleCommonException(Exception e) {
+        return CommonResult.failed(e.getMessage());
+    }
+
+    @ResponseBody
+    @ExceptionHandler(value = AuthenticationException.class)
+    public CommonResult handleOauth2Exception(AuthenticationException e) {
         return CommonResult.failed(e.getMessage());
     }
 }

@@ -9,10 +9,11 @@ package com.macro.cloud.security.constant;
  */
 public interface SecurityConstant {
 
-    String AUTHORIZATION_HEAD = "Authorization";
-
     String TOKEN_TYPE = "Bearer ";
 
+    String CHECK_RESULT = "Check-Result";
+
+    String AUTHORIZATION_HEAD = "Authorization";
 
 }
 
