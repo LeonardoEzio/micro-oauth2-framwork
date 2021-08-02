@@ -33,7 +33,6 @@
         <caffeine-cache.version>2.6.2</caffeine-cache.version>
         <commons-lang3.version>3.9</commons-lang3.version>
         <commons-collections4.version>4.4</commons-collections4.version>
-        <jansi.version>1.18</jansi.version>
     </properties>
 
     <dependencyManagement>

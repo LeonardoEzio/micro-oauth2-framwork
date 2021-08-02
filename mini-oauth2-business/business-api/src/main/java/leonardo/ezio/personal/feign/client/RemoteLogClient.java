@@ -1,5 +1,6 @@
 package leonardo.ezio.personal.feign.client;
 
+
 import leonardo.ezio.personal.api.CommonResult;
 import leonardo.ezio.personal.feign.constant.FeignClientName;
 import leonardo.ezio.personal.feign.entity.LogInfo;
