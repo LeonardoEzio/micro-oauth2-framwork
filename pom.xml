@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>leonardo.ezio.personal</groupId>
-    <artifactId>mini-oauth2</artifactId>
+    <artifactId>micro-server-architectures</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0</version>
     <modules>
