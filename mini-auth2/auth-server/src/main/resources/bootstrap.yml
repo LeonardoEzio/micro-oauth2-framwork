@@ -1,0 +1,6 @@
+server:
+  port: 9901
+
+spring:
+  application:
+    name: auth-server

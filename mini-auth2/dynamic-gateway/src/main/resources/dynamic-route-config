@@ -13,13 +13,13 @@
     "filters": []
   },
   {
-    "id": "scm-route",
-    "uri": "lb://scm-business",
+    "id": "auth-route",
+    "uri": "lb://auth-server",
     "predicates": [
       {
         "name": "Path",
         "args": {
-          "pattern": "/scm/business/**"
+          "pattern": "/auth/**"
         }
       }
     ],
@@ -27,7 +27,7 @@
       {
         "name": "StripPrefix",
         "args": {
-          "_genkey_0": "2"
+          "_genkey_0": "1"
         }
       }
     ]
