@@ -52,7 +52,7 @@ public class DynamicRouteListener implements InitializingBean {
             String initConfig = configService.getConfig(dynamicRouteConfig.getDataId(), dynamicRouteConfig.getGroupId(), dynamicRouteConfig.getTimeout());
             log.info("init router config from dataId : {} ; groupId : {} ; config info : {}",dynamicRouteConfig.getDataId(),dynamicRouteConfig.getGroupId(),initConfig);
             List<RouteDefinition> routeDefinitions = JSONObject.parseArray(initConfig, RouteDefinition.class);
-            routeDefinitions.forEach(dynamicRouteService::add);
+            dynamicRouteService.add(routeDefinitions);
 
             //监听路由变更
             configService.addListener(dynamicRouteConfig.getDataId(), dynamicRouteConfig.getGroupId(), new Listener() {
@@ -65,7 +65,7 @@ public class DynamicRouteListener implements InitializingBean {
                 public void receiveConfigInfo(String configInfo) {
                     log.info("receive router config from dataId : {} ; groupId : {} ; config info : {} ",dynamicRouteConfig.getDataId(),dynamicRouteConfig.getGroupId(),configInfo);
                     List<RouteDefinition> routeDefinitions = JSONObject.parseArray(configInfo, RouteDefinition.class);
-                    routeDefinitions.forEach(dynamicRouteService::update);
+                    dynamicRouteService.update(routeDefinitions);
                 }
             });
         } catch (NacosException e) {
