@@ -1,0 +1,35 @@
+[
+  {
+    "id": "user-center",
+    "uri": "lb://user-center",
+    "predicates": [
+      {
+        "name": "Path",
+        "args": {
+          "pattern": "/user/**"
+        }
+      }
+    ],
+    "filters": []
+  },
+  {
+    "id": "scm-route",
+    "uri": "lb://scm-business",
+    "predicates": [
+      {
+        "name": "Path",
+        "args": {
+          "pattern": "/scm/business/**"
+        }
+      }
+    ],
+    "filters": [
+      {
+        "name": "StripPrefix",
+        "args": {
+          "_genkey_0": "2"
+        }
+      }
+    ]
+  }
+]

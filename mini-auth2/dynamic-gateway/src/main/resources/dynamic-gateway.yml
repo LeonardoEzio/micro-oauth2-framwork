@@ -1,0 +1,18 @@
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          #开启从注册中心动态创建路由的功能
+          enabled: true
+          #使用小写服务名，默认是大写
+          lower-case-service-id: true
+    loadbalancer:
+      ribbon:
+        enabled: false
+dynamic:
+  route:
+    address: 10.8.160.110:8848
+    dataId: dynamic-route-config
+    namespace: 8f5b687f-da0d-4494-a8b4-144c0b381b35
+
