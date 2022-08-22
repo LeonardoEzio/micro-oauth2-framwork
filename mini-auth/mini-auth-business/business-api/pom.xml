@@ -4,32 +4,36 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>leonardo.ezio.personal</groupId>
-        <artifactId>mini-oauth2-common</artifactId>
+        <artifactId>mini-auth-business</artifactId>
         <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>common-log</artifactId>
+    <artifactId>business-api</artifactId>
 
     <dependencies>
 
+        <!-- rpc -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-okhttp</artifactId>
         </dependency>
 
-        <!-- 内部依赖 -->
+        <!--        <dependency>-->
+        <!--            <groupId>com.squareup.okhttp3</groupId>-->
+        <!--            <artifactId>okhttp</artifactId>-->
+        <!--        </dependency>-->
+
+
         <dependency>
             <groupId>leonardo.ezio.personal</groupId>
-            <artifactId>business-api</artifactId>
+            <artifactId>common</artifactId>
             <version>1.0.0</version>
         </dependency>
     </dependencies>
-
-
 </project>

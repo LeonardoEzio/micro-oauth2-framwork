@@ -9,14 +9,14 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>mini-oauth</artifactId>
+    <artifactId>mini-auth</artifactId>
     <packaging>pom</packaging>
 
     <modules>
-        <module>mini-oauth2-gateway</module>
-        <module>mini-oauth2-auth</module>
-        <module>mini-oauth2-business</module>
-        <module>mini-oauth2-common</module>
+        <module>mini-auth-gateway</module>
+        <module>mini-auth-auth</module>
+        <module>mini-auth-business</module>
+        <module>mini-auth-common</module>
     </modules>
 
     <properties>
