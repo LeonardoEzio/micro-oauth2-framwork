@@ -1,7 +1,7 @@
 package leonardo.ezio.personal.web.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import leonardo.ezio.personal.web.dto.AuthDto;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Description :
@@ -11,13 +11,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AuthController {
 
-    @RequestMapping("test")
-    public String test(){
+    @GetMapping(value = "test")
+    public String test(@RequestParam String msg){
         return "test success";
     }
 
+    @DeleteMapping(value = "delete/{id}")
+    public String delete(@PathVariable Integer id){
+        return "delete success";
+    }
+
     @RequestMapping("auth")
-    public String auth(){
+    public String auth(@RequestBody AuthDto authDto){
         return "鉴权成功！";
     }
 }
