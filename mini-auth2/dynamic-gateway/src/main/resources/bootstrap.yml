@@ -4,3 +4,5 @@ server:
 spring:
   application:
     name: dynamic-gateway
+  codec:
+    max-in-memory-size: 100MB

@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.reactivestreams.Publisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.cloud.gateway.filter.factory.rewrite.CachedBodyOutputMessage;
@@ -21,6 +22,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.codec.HttpMessageReader;
+import org.springframework.http.codec.ServerCodecConfigurer;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpRequestDecorator;
 import org.springframework.http.server.reactive.ServerHttpResponse;
@@ -51,6 +53,9 @@ public class LogFilter implements GlobalFilter, Ordered {
     private static final int LOG_FILTER_ORDER = -10;
 
     private static final List<HttpMessageReader<?>> MESSAGE_READERS = HandlerStrategies.withDefaults().messageReaders();
+
+    @Autowired
+    private ServerCodecConfigurer serverCodecConfigurer;
 
     private static final Logger log = LoggerFactory.getLogger(LogFilter.class);
 
@@ -93,7 +98,7 @@ public class LogFilter implements GlobalFilter, Ordered {
      * @return
      */
     private Mono<Void> writeBodyLog(ServerWebExchange exchange, GatewayFilterChain chain, AccessLog accessLog) {
-        ServerRequest serverRequest = ServerRequest.create(exchange, MESSAGE_READERS);
+        ServerRequest serverRequest = ServerRequest.create(exchange, serverCodecConfigurer.getReaders());
 
         Mono<String> modifiedBody = serverRequest.bodyToMono(String.class)
                 .flatMap(body ->{

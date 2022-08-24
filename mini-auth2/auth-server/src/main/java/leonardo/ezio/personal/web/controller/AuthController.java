@@ -1,7 +1,10 @@
 package leonardo.ezio.personal.web.controller;
 
 import leonardo.ezio.personal.web.dto.AuthDto;
+import leonardo.ezio.personal.web.dto.NameDto;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @Description :
@@ -24,5 +27,10 @@ public class AuthController {
     @RequestMapping("auth")
     public String auth(@RequestBody AuthDto authDto){
         return "鉴权成功！";
+    }
+
+    @PostMapping("bigData")
+    public String bigData(@RequestBody List<NameDto> obj){
+        return "sucess";
     }
 }
